@@ -77,6 +77,31 @@
 						    * attack, so no Speculative Store Bypass
 						    * control required.
 						    */
+#define ARCH_CAP_RDCL_NO		BIT(0)	/* Not susceptible to Meltdown */
+#define ARCH_CAP_IBRS_ALL		BIT(1)	/* Enhanced IBRS support */
+#define ARCH_CAP_SKIP_VMENTRY_L1DFLUSH	BIT(3)	/* Skip L1D flush on vmentry */
+#define ARCH_CAP_SSB_NO			BIT(4)	/*
+						 * Not susceptible to Speculative Store Bypass
+						 * attack, so no Speculative Store Bypass
+						 * control required.
+						 */
+#define ARCH_CAP_MDS_NO			BIT(5)   /*
+						  * Not susceptible to
+						  * Microarchitectural Data
+						  * Sampling (MDS) vulnerabilities.
+						  */
+#define ARCH_CAP_PSCHANGE_MC_NO		BIT(6)	 /*
+						  * The processor is not susceptible to a
+						  * machine check error due to modifying the
+						  * code page size along with either the
+						  * physical address or cache type
+						  * without TLB invalidation.
+						  */
+#define ARCH_CAP_TSX_CTRL_MSR		BIT(7)	/* MSR for TSX control is available. */
+#define ARCH_CAP_TAA_NO			BIT(8)	/*
+						 * Not susceptible to
+						 * TSX Async Abort (TAA) vulnerabilities.
+						 */
 
 #define MSR_IA32_FLUSH_CMD		0x0000010b
 #define L1D_FLUSH			(1 << 0)   /*
