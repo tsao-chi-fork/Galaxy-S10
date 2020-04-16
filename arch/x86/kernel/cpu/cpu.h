@@ -53,5 +53,6 @@ extern int detect_ht_early(struct cpuinfo_x86 *c);
 unsigned int aperfmperf_get_khz(int cpu);
 
 extern void x86_spec_ctrl_setup_ap(void);
+extern void update_srbds_msr(void);
 
 #endif /* ARCH_X86_CPU_H */
