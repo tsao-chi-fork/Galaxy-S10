@@ -1067,7 +1067,7 @@ void pm_print_active_wakeup_sources(void)
 #ifdef CONFIG_BOEFFLA_WL_BLOCKER
 			if (!check_for_block(ws))	// AP: check if wakelock is on wakelock blocker list
 #endif
-				active = 1;
+			active = 1;
 		} else if (!active &&
 			   (!last_activity_ws ||
 			    ktime_to_ns(ws->last_time) >
