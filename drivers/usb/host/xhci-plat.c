@@ -665,7 +665,8 @@ static int __maybe_unused xhci_plat_resume(struct device *dev)
 
 	pr_info("[%s] \n",__func__);
 
-	return xhci_resume(xhci, 0);
+	// return xhci_resume(xhci, 0);
+    return 0;
 }
 
 static int __maybe_unused xhci_plat_runtime_suspend(struct device *dev)
