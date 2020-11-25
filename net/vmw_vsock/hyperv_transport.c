@@ -316,7 +316,6 @@ static void hvs_do_close_lock_held(struct vsock_sock *vsk,
 static void hvs_close_connection(struct vmbus_channel *chan)
 {
 	struct sock *sk = get_per_channel_state(chan);
-
 	lock_sock(sk);
 	hvs_do_close_lock_held(vsock_sk(sk), true);
 	release_sock(sk);
