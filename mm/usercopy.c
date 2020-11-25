@@ -137,6 +137,9 @@ static inline void check_bogus_address(const unsigned long ptr, unsigned long n,
 	if (ptr + n < ptr)
 		usercopy_abort("wrapped address", NULL, to_user, 0, ptr + n);
 
+	if ((unsigned long)ptr + (n - 1) < (unsigned long)ptr)
+		return "<wrapped address>";
+
 	/* Reject if NULL or ZERO-allocation. */
 	if (ZERO_OR_NULL_PTR(ptr))
 		usercopy_abort("null address", NULL, to_user, ptr, n);
