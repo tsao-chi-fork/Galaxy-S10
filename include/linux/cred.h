@@ -164,7 +164,6 @@ struct cred {
 	/* RCU deletion */
 	union {
 		int non_rcu;			/* Can we skip RCU deletion? */
-		struct rcu_head	rcu;		/* RCU deletion hook */
 	};
 } __randomize_layout;
 

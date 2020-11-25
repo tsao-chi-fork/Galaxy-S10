@@ -276,7 +276,6 @@ static int nf_ct_frag6_queue(struct frag_queue *fq, struct sk_buff *skb,
 
 	if (err)
 		goto insert_error;
-	}
 
 	if (dev)
 		fq->iif = dev->ifindex;

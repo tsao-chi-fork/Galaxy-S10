@@ -238,19 +238,17 @@ void __put_cred(struct cred *cred)
 	BUG_ON(cred == current->cred);
 	BUG_ON(cred == current->real_cred);
 
-<<<<<<< HEAD
 #ifdef CONFIG_RKP_KDP
 	if (rkp_ro_page((unsigned long)cred)) {
 		call_rcu(&(get_rocred_rcu(cred)->rcu), put_ro_cred_rcu);
 	} else
 #endif /*CONFIG_RKP_KDP*/
 	call_rcu(&cred->rcu, put_cred_rcu);
-=======
+
 	if (cred->non_rcu)
 		put_cred_rcu(&cred->rcu);
 	else
 		call_rcu(&cred->rcu, put_cred_rcu);
->>>>>>> 1391d3b9b230b330b5babb310e42df262120f5bf
 }
 EXPORT_SYMBOL(__put_cred);
 
@@ -829,7 +827,7 @@ const struct cred *override_creds(const struct cred *new)
 
 	validate_creds(old);
 	validate_creds(new);
-<<<<<<< HEAD
+
 #ifdef CONFIG_RKP_KDP
 	if(rkp_cred_enable) {
 		volatile unsigned int rkp_use_count = rkp_get_usecount(new);
@@ -847,7 +845,6 @@ const struct cred *override_creds(const struct cred *new)
 	}
 #else
 	get_cred(new);
-=======
 
 	/*
 	 * NOTE! This uses 'get_new_cred()' rather than 'get_cred()'.
@@ -861,7 +858,6 @@ const struct cred *override_creds(const struct cred *new)
 	 * on the validation in 'get_cred()'.
 	 */
 	get_new_cred((struct cred *)new);
->>>>>>> 1391d3b9b230b330b5babb310e42df262120f5bf
 	alter_cred_subscribers(new, 1);
 	rcu_assign_pointer(current->cred, new);
 #endif  /* CONFIG_RKP_KDP */
