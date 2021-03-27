@@ -7,7 +7,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v1
+    - uses: actions/checkout@v2
     - name: Install mkbootimg
       run: |
         wget -q https://android.googlesource.com/platform/system/tools/mkbootimg/+archive/refs/heads/master.tar.gz -O - | tar xzf - mkbootimg.py
@@ -20,8 +20,8 @@ jobs:
         sudo mv avbtool /usr/local/bin/avbtool
     - name: Install toolchain
       run: |
-        rm -fr toolchain
         git submodule deinit --force --all
+        rm -fr toolchain
         git add .
         mkdir toolchain
         git submodule add --branch proton --depth 1 https://github.com/CruelKernel/samsung-exynos9820-toolchain toolchain/proton
