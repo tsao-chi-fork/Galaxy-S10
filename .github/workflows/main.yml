@@ -24,13 +24,22 @@ jobs:
         sudo mv avbtool /usr/local/bin/avbtool
     - name: Clone Submodules
       run: git submodule update --init --recursive
+    - name: Enable KVM
+      run: |
+          for file in $(find -name 'exynos9820*_defconfig'); do
+            echo "Modifying $file ..."
+            echo >> "$file"
+            echo 'CONFIG_VIRTUALIZATION=y' >> "$file"
+            echo 'CONFIG_KVM=y' >> "$file"
+            echo 'CONFIG_KVM_MMIO=y' >> "$file"
+            echo 'CONFIG_KVM_ARM_HOST=y' >> "$file"
+          done
     - name: Kernel Configure
       run: |
         ./build config                   \
                 model=${{ matrix.model}} \
                 name="ThunderStormsKernel"        \
                 +magisk                  \
-                +nohardening             \
                 +ttl                     \
                 +wireguard               \
                 +cifs                    \
