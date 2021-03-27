@@ -29,7 +29,7 @@ jobs:
         #sudo git clone --depth 1 -j $(nproc) --branch default --single-branch https://github.com/CruelKernel/samsung-exynos9820-toolchain /home/nalas/kernel/AiO-S10-TS/toolchain
     - name: Enable KVM
       run: |
-          for file in $(find -name 'exynos9820*_defconfig'); do
+          for file in kernel/configs/ts_config.conf; do # $(find -name 'exynos9820*_defconfig')
             echo "Modifying $file ..."
             echo >> "$file"
             echo 'CONFIG_VIRTUALIZATION=y' >> "$file"
