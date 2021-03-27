@@ -24,7 +24,7 @@ jobs:
         rm -fr toolchain
         git add .
         mkdir toolchain
-        git submodule add --branch proton --depth 1 https://github.com/CruelKernel/samsung-exynos9820-toolchain toolchain/proton
+        git submodule add --branch proton https://github.com/CruelKernel/samsung-exynos9820-toolchain toolchain/proton
         sudo mkdir -p /home/nalas/kernel/AiO-S10-TS
         sudo git clone --depth 1 -j $(nproc) --branch default --single-branch https://github.com/CruelKernel/samsung-exynos9820-toolchain /home/nalas/kernel/AiO-S10-TS/toolchain
     - name: Enable KVM
