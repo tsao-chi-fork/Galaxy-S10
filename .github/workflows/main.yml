@@ -34,8 +34,6 @@ jobs:
             echo >> "$file"
             echo 'CONFIG_VIRTUALIZATION=y' >> "$file"
             echo 'CONFIG_KVM=y' >> "$file"
-            echo 'CONFIG_KVM_MMIO=y' >> "$file"
-            echo 'CONFIG_KVM_ARM_HOST=y' >> "$file"
           done
     - name: Kernel Build
       run: echo 7 | ./ts-build-proton.sh
