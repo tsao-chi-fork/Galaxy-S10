@@ -2,6 +2,9 @@ name: Build
 
 on: [push]
 
+env:
+  TOOLCHAIN: proton
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -22,8 +25,11 @@ jobs:
         wget -q https://android.googlesource.com/platform/external/avb/+archive/refs/heads/android10-dev.tar.gz -O - | tar xzf - avbtool
         chmod +x avbtool
         sudo mv avbtool /usr/local/bin/avbtool
-    - name: Clone Submodules
-      run: git submodule update --init --recursive
+    - name: Toolchain
+      run: |
+        rm -fr toolchain
+        mkdir toolchain
+        git clone --depth 1 -j $(nproc) --branch $TOOLCHAIN --single-branch https://github.com/CruelKernel/samsung-exynos9820-toolchain toolchain/$TOOLCHAIN
     - name: Enable KVM
       run: |
           for file in $(find -name 'exynos9820*_defconfig'); do
@@ -38,14 +44,9 @@ jobs:
       run: |
         ./build config                   \
                 model=${{ matrix.model}} \
+                toolchain=$TOOLCHAIN      \
                 name="ThunderStormsKernel"        \
                 +magisk                  \
-                +cifs                    \
-                +sdfat                   \
-                +ntfs                    \
-                +morosound               \
-                +boeffla_wl_blocker      \
-                +ts_config               \
         2>&1 | tee config.info
     - name: Kernel Build
       run: ./build :build
