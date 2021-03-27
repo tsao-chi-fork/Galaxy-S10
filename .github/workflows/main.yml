@@ -8,7 +8,7 @@ jobs:
 
     strategy:
       matrix:
-        model: [ "G973F" ]
+        model: [ "N971N" ]
 
     steps:
     - uses: actions/checkout@v1
@@ -40,8 +40,6 @@ jobs:
                 model=${{ matrix.model}} \
                 name="ThunderStormsKernel"        \
                 +magisk                  \
-                +ttl                     \
-                +wireguard               \
                 +cifs                    \
                 +sdfat                   \
                 +ntfs                    \
