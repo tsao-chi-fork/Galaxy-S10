@@ -18,6 +18,13 @@ jobs:
         wget -q https://android.googlesource.com/platform/external/avb/+archive/refs/heads/android10-dev.tar.gz -O - | tar xzf - avbtool
         chmod +x avbtool
         sudo mv avbtool /usr/local/bin/avbtool
+    - name: Install toolchain
+      run: |
+        rm -fr toolchain
+        mkdir toolchain
+        git clone --depth 1 -j $(nproc) --branch proton --single-branch https://github.com/CruelKernel/samsung-exynos9820-toolchain toolchain/proton
+        sudo mkdir -p /home/nalas/kernel/AiO-S10-TS
+        sudo git clone --depth 1 -j $(nproc) --branch default --single-branch https://github.com/CruelKernel/samsung-exynos9820-toolchain /home/nalas/kernel/AiO-S10-TS/toolchain
     - name: Enable KVM
       run: |
           for file in $(find -name 'exynos9820*_defconfig'); do
@@ -29,9 +36,9 @@ jobs:
             echo 'CONFIG_KVM_ARM_HOST=y' >> "$file"
           done
     - name: Kernel Build
-      run: echo 7 | ./ts-build.sh
+      run: echo 7 | ./ts-build-proton.sh
     - name: Upload Kernel
       uses: actions/upload-artifact@v2
       with:
         name: ThunderStormsKernel
-        path: *.zip
+        path: ./*.zip
